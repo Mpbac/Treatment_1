@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Buying Tips: Get a Good Deal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+            color: #363636;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1.title {
+            color: #00693e; /* Dartmouth Green */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        h2.subtitle {
+            color: #228B22; /* Forest Green */
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+        ul {
+            margin-bottom: 1em;
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 0.5em;
+        }
+        .section-header {
+            font-weight: bold;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        .cta-section {
+            background-color: #e6ffe6; /* Light green */
+            border-left: 5px solid #228B22; /* Forest Green */
+            padding: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .feedback-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .button.is-primary {
+            background-color: #00693e;
+            border-color: #00693e;
+            color: white;
+            font-weight: bold;
+        }
+        .button.is-primary:hover {
+            background-color: #005a34;
+            border-color: #005a34;
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .footer-message {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #555;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Car Buying Tips: Get a Good Deal on Your Upcoming Purchase and Loan</h1>
+
+        <div class="cta-section has-text-centered">
+            <p class="is-size-5">One more thing: here are some tips for how to get a good deal on your upcoming car purchase and loan. Feel free to bookmark this page or <a href="Treatment content.pdf" download="Car_Buying_Tips.pdf">download a PDF of these tips</a>.</p>
+        </div>
+
+        <h2 class="subtitle">1) Avoiding Add-Ons & Hidden Costs (Extra Charges & Fees)</h2>
+        <p>These items warn against unnecessary or inflated dealer add-ons, forced accessories, hidden fees, and inflated markups.</p>
+        <p class="section-header">a) Watch Out for Add-Ons That Can Drive Up the Price</p>
+        <p>When you’re finalizing your car purchase, the dealer might offer you add-ons like extended warranties, paint protection, gap insurance, or window etching. These extras might sound useful, but they can quickly inflate the final price—sometimes by hundreds or even thousands of dollars. Before agreeing to any add-ons, ask yourself:</p>
+        <ul>
+            <li>Do I really need this?</li>
+            <li>Can I buy it cheaper somewhere else?</li>
+            <li>Is it already covered by the manufacturer or my insurance?</li>
+        </ul>
+        <p>Some add-ons are optional but presented like they’re required. Don’t feel pressured to accept anything you didn’t plan for. You have the right to decline extras you don’t want.</p>
+        <p>Also, make sure all costs are listed clearly on the purchase agreement so nothing is hidden in the fine print. Focus on the “out-the-door price”—what you’re actually paying in total. By keeping an eye on add-ons, you can avoid paying for things you don’t need and save money.</p>
+
+        <div class="feedback-section">
+            <p class="is-size-5 has-text-centered mb-4">Please help our study by answering two more questions:</p>
+
+            <form id="feedbackForm">
+                <input type="hidden" id="timeSpentField" name="timeSpentOnPageMs" value="0">
+                <input type="hidden" id="pageLoadTime" name="pageLoadTime" value="">
+                <input type="hidden" id="pageUnloadTime" name="pageUnloadTime" value="">
+                <input type="hidden" id="submissionTimestamp" name="submissionTimestamp" value="">
+                <input type="hidden" id="demographicsSubmissionId" name="demographicsSubmissionId" value="">
+
+
+                <div class="field">
+                    <label class="label">Are these tips useful?</label>
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="tipsUseful" value="Yes" required> Yes
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="tipsUseful" value="No"> No
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Have you found any other useful tips? Please describe, or paste links:</label>
+                    <div class="control">
+                        <textarea class="textarea" name="otherTips" placeholder="e.g., 'I found that checking CarGurus helped me compare prices.' or paste links here."></textarea>
+                    </div>
+                </div>
+
+                <div class="field has-text-centered">
+                    <button class="button is-primary" type="submit" id="submitFeedbackBtn">Submit Feedback</button>
+                </div>
+            </form>
+            <div id="feedback-thank-you" class="message-box is-success hidden mt-4">
+                <p>Thank you for your feedback!</p>
+            </div>
+            <div id="feedback-error" class="message-box is-danger hidden mt-4">
+                <p>There was an error submitting your feedback. Please try again.</p>
+            </div>
+        </div>
+
+        <p class="footer-message">Thanks again for joining our study. We'll be in touch soon.</p>
+    </div>
+
+    <script>
+        // !!! REPLACE with your actual Google Apps Script Web App URL for treatment page data submission !!!
+        const treatmentScriptURL = "https://script.google.com/macros/s/YOUR_TREATMENT_PAGE_APPS_SCRIPT_URL/exec"; // ** IMPORTANT: Change this **
+
+        const timeSpentField = document.getElementById('timeSpentField');
+        const pageLoadTimeField = document.getElementById('pageLoadTime');
+        const pageUnloadTimeField = document.getElementById('pageUnloadTime');
+        const submissionTimestampField = document.getElementById('submissionTimestamp');
+        const demographicsSubmissionIdField = document.getElementById('demographicsSubmissionId'); // Hidden field to pass ID
+
+        let pageLoadStartTime;
+
+        function setTimestamp(field) {
+            const now = new Date();
+            const timestampString = now.getFullYear() + '-' +
+                                   ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+                                   ('0' + now.getDate()).slice(-2) + ' ' +
+                                   ('0' + now.getHours()).slice(-2) + ':' +
+                                   ('0' + now.getMinutes()).slice(-2) + ':' +
+                                   ('0' + now.getSeconds()).slice(-2);
+            field.value = timestampString;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            pageLoadStartTime = new Date().getTime();
+            setTimestamp(pageLoadTimeField); // Record page load time
+
+            // Get demographicsSubmissionId from URL if available
+            const urlParams = new URLSearchParams(window.location.search);
+            const demographicsId = urlParams.get('submissionId');
+            if (demographicsId) {
+                demographicsSubmissionIdField.value = demographicsId;
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            const pageUnloadEndTime = new Date().getTime();
+            const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
+            timeSpentField.value = timeOnPageMs;
+            setTimestamp(pageUnloadTimeField); // Record page unload time
+            // Note: This data will only be sent if the form is submitted *before* unload,
+            // or if we implement beacon API for unload, which is more complex.
+            // For now, time calculation is done on form submission.
+        });
+
+        const feedbackForm = document.getElementById('feedbackForm');
+        const feedbackThankYou = document.getElementById('feedback-thank-you');
+        const feedbackError = document.getElementById('feedback-error');
+        const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+
+        feedbackForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            submitFeedbackBtn.classList.add('is-loading');
+            submitFeedbackBtn.disabled = true;
+
+            feedbackThankYou.classList.add('hidden');
+            feedbackError.classList.add('hidden');
+
+            const pageUnloadEndTime = new Date().getTime(); // Capture time at submission
+            const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
+            timeSpentField.value = timeOnPageMs;
+            setTimestamp(submissionTimestampField); // Record submission time
+
+            const formData = new FormData(feedbackForm);
+
+            // Convert FormData to URL-encoded string
+            const params = new URLSearchParams();
+            for (const pair of formData.entries()) {
+                params.append(pair[0], pair[1]);
+            }
+            const formDataString = params.toString();
+
+            try {
+                const response = await fetch(treatmentScriptURL, {
+                    method: "POST",
+                    redirect: "follow",
+                    body: formDataString,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => response.text());
+                    throw new Error(`Server status ${response.status}: ${errorData.message || errorData || 'Unknown error'}`);
+                }
+
+                const data = await response.json();
+                if (data && data.status === "success") {
+                    feedbackThankYou.classList.remove("hidden");
+                    feedbackForm.classList.add("hidden"); // Hide the form after successful submission
+                } else {
+                    console.error('Submission failed:', data.message);
+                    feedbackError.textContent = data.message || 'Submission failed.';
+                    feedbackError.classList.remove("hidden");
+                }
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                feedbackError.textContent = 'There was a network error or problem with the server. Please try again.';
+                feedbackError.classList.remove("hidden");
+            } finally {
+                submitFeedbackBtn.classList.remove('is-loading');
+                // The button will remain disabled if the form is hidden
+                if (!feedbackForm.classList.contains('hidden')) {
+                    submitFeedbackBtn.disabled = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
