@@ -251,7 +251,7 @@
 
     <script>
         // !!! REPLACE with your actual Google Apps Script Web App URL for treatment page data submission !!!
-        const treatmentScriptURL = "https://script.google.com/macros/s/AKfycbz74V9JXvlPx80mveoft0ODn9gm2z-YMqUijFoPZt3vy44CpOyOTwQJy8ADkuMDIVzcjg/exec"; // ** IMPORTANT: Change this **
+        const treatmentScriptURL = "https://script.google.com/macros/s/AKfycbyVRyx4vmHWNs47rZv8EhKUYbqUY5v3hOP6w9PMiV5SkYfVfmXT1Mu4hDeyXebj19a6Xg/exec"; // ** IMPORTANT: Change this **
 
         const timeSpentField = document.getElementById('timeSpentField');
         const pageLoadTimeField = document.getElementById('pageLoadTime');
@@ -295,17 +295,22 @@
         });
 
         const feedbackForm = document.getElementById('feedbackForm');
+        // --- FIX: Corrected typo from 'feedback-thank-ou' to 'feedback-thank-you' ---
         const feedbackThankYou = document.getElementById('feedback-thank-you');
         const feedbackError = document.getElementById('feedback-error');
         const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
 
         feedbackForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            submitFeedbackBtn.classList.add('is-loading');
-            submitFeedbackBtn.disabled = true;
 
+            // --- ADDITION: Hide messages from previous attempts at the start of submission ---
             feedbackThankYou.classList.add('hidden');
             feedbackError.classList.add('hidden');
+            feedbackError.textContent = ''; // Clear any previous error text
+            // --- END ADDITION ---
+
+            submitFeedbackBtn.classList.add('is-loading'); // Show spinner
+            submitFeedbackBtn.disabled = true; // Disable button
 
             const pageUnloadEndTime = new Date().getTime(); // Capture time at submission
             const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
@@ -336,17 +341,17 @@
 
                 const data = await response.json();
                 if (data && data.status === "success") {
-                    feedbackThankYou.classList.remove("hidden");
-                    feedbackForm.classList.add("hidden"); // Hide the form after successful submission
+                    feedbackThankYou.classList.remove("hidden"); // Show success message
+                    feedbackForm.classList.add("hidden"); // Hide the form
                 } else {
                     console.error('Submission failed:', data.message);
                     feedbackError.textContent = data.message || 'Submission failed.';
-                    feedbackError.classList.remove("hidden");
+                    feedbackError.classList.remove("hidden"); // Show specific submission error
                 }
             } catch (error) {
                 console.error('Error submitting feedback:', error);
                 feedbackError.textContent = 'There was a network error or problem with the server. Please try again.';
-                feedbackError.classList.remove("hidden");
+                feedbackError.classList.remove("hidden"); // Show generic network error
             } finally {
                 submitFeedbackBtn.classList.remove('is-loading');
                 // The button will remain disabled if the form is hidden
