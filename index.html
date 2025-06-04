@@ -21,7 +21,7 @@
         .container {
             max-width: 700px; /* Adjusted to match index.html's form-card */
             margin: 20px auto;
-            background-color: white;
+            background-color: white; /* This background applies to the main content container */
             padding: 20px; /* Adjusted padding */
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow */
             border-radius: 10px;
@@ -36,7 +36,9 @@
           border-radius: 10px 10px 0 0; /* Rounded top corners */
         }
 
+        /* --- START MODIFICATION --- */
         .hero-body .container {
+          background-color: transparent; /* Changed from white to transparent */
           display: flex;
           align-items: center;
           justify-content: flex-start; 
@@ -44,14 +46,15 @@
           margin: 0 auto; /* Center the content within the hero-body */
           padding: 1rem 0; /* Adjust internal padding */
         }
+        /* --- END MODIFICATION --- */
 
        .hero .title {
-      color: white;
-      font-size: 2.5em;
-      font-weight: 600;
-      margin-left: 1.5rem;
-      margin-bottom: 0;
-    }
+         color: white;
+         font-size: 2.5em;
+         font-weight: 600;
+         margin-left: 1.5rem;
+         margin-bottom: 0;
+       }
 
         .banner-logo {
           max-height: 50px; /* Size of the logo */
@@ -181,7 +184,7 @@
 
 </head>
 <body>
-   <section class="hero is-primary is-bold">
+    <section class="hero is-primary is-bold">
     <div class="hero-body">
       <div class="container">
         <img src="D-Pine_Rev.png" alt="Dartmouth College Logo" class="banner-logo">
