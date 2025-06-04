@@ -284,70 +284,79 @@
         }
 
         // --- ALL DOM ELEMENT REFERENCES AND EVENT LISTENERS MOVED INSIDE HERE ---
-        const feedbackForm = document.getElementById('feedbackForm');
-        const feedbackThankYou = document.getElementById('feedback-thank-you');
-        const feedbackError = document.getElementById('feedback-error');
-        const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+        setTimeout(() => {
+                const feedbackForm = document.getElementById('feedbackForm');
+                const feedbackThankYou = document.getElementById('feedback-thank-you');
+                const feedbackError = document.getElementById('feedback-error');
+                const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
 
-        feedbackForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+                // Check if elements are found (for debugging)
+                if (!feedbackForm) console.error("feedbackForm not found!");
+                if (!feedbackThankYou) console.error("feedbackThankYou not found!");
+                if (!feedbackError) console.error("feedbackError not found!");
+                if (!submitFeedbackBtn) console.error("submitFeedbackBtn not found!");
 
-            // Hide messages from previous attempts at the start of submission
-            feedbackThankYou.classList.add('hidden');
-            feedbackError.classList.add('hidden');
-            feedbackError.textContent = ''; // Clear any previous error text
 
-            submitFeedbackBtn.classList.add('is-loading'); // Show spinner
-            submitFeedbackBtn.disabled = true; // Disable button
+                feedbackForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
 
-            const pageUnloadEndTime = new Date().getTime(); // Capture time at submission
-            const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
-            timeSpentField.value = timeOnPageMs;
-            setTimestamp(submissionTimestampField); // Record submission time
+                    // Hide messages from previous attempts at the start of submission
+                    feedbackThankYou.classList.add('hidden');
+                    feedbackError.classList.add('hidden');
+                    feedbackError.textContent = ''; // Clear any previous error text
 
-            const formData = new FormData(feedbackForm);
+                    submitFeedbackBtn.classList.add('is-loading'); // Show spinner
+                    submitFeedbackBtn.disabled = true; // Disable button
 
-            // Convert FormData to URL-encoded string
-            const params = new URLSearchParams();
-            for (const pair of formData.entries()) {
-                params.append(pair[0], pair[1]);
-            }
-            const formDataString = params.toString();
+                    const pageUnloadEndTime = new Date().getTime(); // Capture time at submission
+                    const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
+                    timeSpentField.value = timeOnPageMs;
+                    setTimestamp(submissionTimestampField); // Record submission time
 
-            try {
-                const response = await fetch(treatmentScriptURL, {
-                    method: "POST",
-                    redirect: "follow",
-                    body: formDataString,
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    const formData = new FormData(feedbackForm);
+
+                    // Convert FormData to URL-encoded string
+                    const params = new URLSearchParams();
+                    for (const pair of formData.entries()) {
+                        params.append(pair[0], pair[1]);
+                    }
+                    const formDataString = params.toString();
+
+                    try {
+                        const response = await fetch(treatmentScriptURL, {
+                            method: "POST",
+                            redirect: "follow",
+                            body: formDataString,
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json().catch(() => response.text());
+                            throw new Error(`Server status ${response.status}: ${errorData.message || errorData || 'Unknown error'}`);
+                        }
+
+                        const data = await response.json();
+                        if (data && data.status === "success") {
+                            feedbackThankYou.classList.remove("hidden"); // Show success message
+                            feedbackForm.classList.add("hidden"); // Hide the form
+                        } else {
+                            console.error('Submission failed:', data.message);
+                            feedbackError.textContent = data.message || 'Submission failed.';
+                            feedbackError.classList.remove("hidden"); // Show specific submission error
+                        }
+                    } catch (error) {
+                        console.error('Error submitting feedback:', error);
+                        feedbackError.textContent = 'There was a network error or problem with the server. Please try again.';
+                        feedbackError.classList.remove("hidden"); // Show generic network error
+                    } finally {
+                        submitFeedbackBtn.classList.remove('is-loading');
+                        // The button will remain disabled if the form is hidden
+                        if (!feedbackForm.classList.contains('hidden')) {
+                            submitFeedbackBtn.disabled = false;
+                        }
+                    }
                 });
-
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => response.text());
-                    throw new Error(`Server status ${response.status}: ${errorData.message || errorData || 'Unknown error'}`);
-                }
-
-                const data = await response.json();
-                if (data && data.status === "success") {
-                    feedbackThankYou.classList.remove("hidden"); // Show success message
-                    feedbackForm.classList.add("hidden"); // Hide the form
-                } else {
-                    console.error('Submission failed:', data.message);
-                    feedbackError.textContent = data.message || 'Submission failed.';
-                    feedbackError.classList.remove("hidden"); // Show specific submission error
-                }
-            } catch (error) {
-                console.error('Error submitting feedback:', error);
-                feedbackError.textContent = 'There was a network error or problem with the server. Please try again.';
-                feedbackError.classList.remove("hidden"); // Show generic network error
-            } finally {
-                submitFeedbackBtn.classList.remove('is-loading');
-                // The button will remain disabled if the form is hidden
-                if (!feedbackForm.classList.contains('hidden')) {
-                    submitFeedbackBtn.disabled = false;
-                }
-            }
-        });
+            }, 10);
         // --- END ALL DOM ELEMENT REFERENCES AND EVENT LISTENERS MOVED INSIDE HERE ---
     });
 </script>
