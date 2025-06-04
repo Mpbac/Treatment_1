@@ -253,75 +253,65 @@
         // !!! REPLACE with your actual Google Apps Script Web App URL for treatment page data submission !!!
         const treatmentScriptURL = "https://script.google.com/macros/s/AKfycbz74V9JXvlPx80mveoft0ODn9gm2z-YMqUijFoPZt3vy44CpOyOTwQJy8ADkuMDIVzcjg/exec"; // ** IMPORTANT: Change this **
 
-       const timeSpentField = document.getElementById('timeSpentField');
-    const pageLoadTimeField = document.getElementById('pageLoadTime');
-    const pageUnloadTimeField = document.getElementById('pageUnloadTime');
-    const submissionTimestampField = document.getElementById('submissionTimestamp');
-    const demographicsSubmissionIdField = document.getElementById('demographicsSubmissionId'); // Hidden field to pass ID
+        let pageLoadStartTime;
 
-    let pageLoadStartTime;
-
-    function setTimestamp(field) {
-        const now = new Date();
-        const timestampString = now.getFullYear() + '-' +
-                               ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
-                               ('0' + now.getDate()).slice(-2) + ' ' +
-                               ('0' + now.getHours()).slice(-2) + ':' +
-                               ('0' + now.getMinutes()).slice(-2) + ':' +
-                               ('0' + now.getSeconds()).slice(-2);
-        field.value = timestampString;
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        pageLoadStartTime = new Date().getTime();
-        setTimestamp(pageLoadTimeField); // Record page load time
-
-        // Get demographicsSubmissionId from URL if available
-        const urlParams = new URLSearchParams(window.location.search);
-        const demographicsId = urlParams.get('submissionId');
-        if (demographicsId) {
-            demographicsSubmissionIdField.value = demographicsId;
+        function setTimestamp(field) {
+            const now = new Date();
+            const timestampString = now.getFullYear() + '-' +
+                                   ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+                                   ('0' + now.getDate()).slice(-2) + ' ' +
+                                   ('0' + now.getHours()).slice(-2) + ':' +
+                                   ('0' + now.getMinutes()).slice(-2) + ':' +
+                                   ('0' + now.getSeconds()).slice(-2);
+            field.value = timestampString;
         }
 
-        // --- ALL DOM ELEMENT REFERENCES AND EVENT LISTENERS MOVED INSIDE HERE ---
-        // Added setTimeout for a tiny delay to ensure DOM is fully ready, as a last resort
-        setTimeout(() => { // Added setTimeout
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure all DOM elements are loaded before trying to access them
+            const timeSpentField = document.getElementById('timeSpentField');
+            const pageLoadTimeField = document.getElementById('pageLoadTime');
+            const submissionTimestampField = document.getElementById('submissionTimestamp');
+            const demographicsSubmissionIdField = document.getElementById('demographicsSubmissionId');
             const feedbackForm = document.getElementById('feedbackForm');
             const feedbackThankYou = document.getElementById('feedback-thank-you');
             const feedbackError = document.getElementById('feedback-error');
             const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
 
-            // Optional: Log if elements are not found for debugging, but don't crash
-            if (!feedbackForm) console.warn("Element 'feedbackForm' not found.");
-            if (!feedbackThankYou) console.warn("Element 'feedback-thank-you' not found.");
-            if (!feedbackError) console.warn("Element 'feedback-error' not found.");
-            if (!submitFeedbackBtn) console.warn("Element 'submitFeedbackBtn' not found.");
 
+            pageLoadStartTime = new Date().getTime();
+            if (pageLoadTimeField) setTimestamp(pageLoadTimeField); // Record page load time
 
-            if (feedbackForm) { // Ensure form element exists before adding listener
+            // Get demographicsSubmissionId from URL if available
+            const urlParams = new URLSearchParams(window.location.search);
+            const demographicsId = urlParams.get('submissionId');
+            if (demographicsId && demographicsSubmissionIdField) {
+                demographicsSubmissionIdField.value = demographicsId;
+            }
+
+            // Only add event listener if the form exists
+            if (feedbackForm) {
                 feedbackForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
 
-                    // Hide messages from previous attempts at the start of submission
+                    // Only update loading state if button exists
+                    if (submitFeedbackBtn) {
+                        submitFeedbackBtn.classList.add('is-loading');
+                        submitFeedbackBtn.disabled = true;
+                    }
+
+                    // Hide messages from previous attempts
                     if (feedbackThankYou) feedbackThankYou.classList.add('hidden');
                     if (feedbackError) {
                         feedbackError.classList.add('hidden');
                         feedbackError.textContent = ''; // Clear any previous error text
                     }
 
-                    if (submitFeedbackBtn) {
-                        submitFeedbackBtn.classList.add('is-loading'); // Show spinner
-                        submitFeedbackBtn.disabled = true; // Disable button
-                    }
-
                     const pageUnloadEndTime = new Date().getTime(); // Capture time at submission
                     const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
-                    timeSpentField.value = timeOnPageMs;
-                    setTimestamp(submissionTimestampField); // Record submission time
+                    if (timeSpentField) timeSpentField.value = timeOnPageMs;
+                    if (submissionTimestampField) setTimestamp(submissionTimestampField); // Record submission time
 
                     const formData = new FormData(feedbackForm);
-
-                    // Convert FormData to URL-encoded string
                     const params = new URLSearchParams();
                     for (const pair of formData.entries()) {
                         params.append(pair[0], pair[1]);
@@ -331,47 +321,77 @@
                     try {
                         const response = await fetch(treatmentScriptURL, {
                             method: "POST",
-                            redirect: "follow",
+                            redirect: "follow", // browser follows redirects
                             body: formDataString,
                             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            //credentials: 'omit' // Added for clarity, default for same-origin
                         });
 
+                        // Check if the HTTP status code indicates success (200-299 range)
                         if (!response.ok) {
-                            const errorData = await response.json().catch(() => response.text());
-                            throw new Error(`Server status ${response.status}: ${errorData.message || errorData || 'Unknown error'}`);
+                            let serverMessage = 'Unknown server error.';
+                            try {
+                                const errorData = await response.json(); // Try to parse as JSON
+                                serverMessage = errorData.message || `Server status ${response.status}.`;
+                            } catch (jsonParseError) {
+                                // If it's not JSON, get the raw text for debugging
+                                const rawResponse = await response.text();
+                                serverMessage = `Server status ${response.status}. Response: ${rawResponse.substring(0, 100)}...`;
+                            }
+                            throw new Error(serverMessage); // Throw to be caught by the outer catch
                         }
 
+                        // Parse the JSON response
                         const data = await response.json();
                         if (data && data.status === "success") {
-                            if (feedbackThankYou) feedbackThankYou.classList.remove("hidden"); // Show success message
-                            if (feedbackForm) feedbackForm.classList.add("hidden"); // Hide the form
+                            if (feedbackThankYou) feedbackThankYou.classList.remove("hidden");
+                            if (feedbackForm) feedbackForm.classList.add("hidden"); // Hide the form after successful submission
                         } else {
-                            console.error('Submission failed:', data.message);
+                            // Server responded with 200 OK, but 'status' in JSON is not 'success'
+                            console.error('Submission failed as per server response:', data.message);
                             if (feedbackError) {
-                                feedbackError.textContent = data.message || 'Submission failed.';
-                                feedbackError.classList.remove("hidden"); // Show specific submission error
+                                feedbackError.textContent = data.message || 'Submission failed. Server did not indicate success.';
+                                feedbackError.classList.remove("hidden");
                             }
                         }
                     } catch (error) {
+                        // This catch block handles network errors, CORS errors, and errors thrown above
                         console.error('Error submitting feedback:', error);
                         if (feedbackError) {
-                            feedbackError.textContent = 'There was a network error or problem with the server. Please try again.';
-                            feedbackError.classList.remove("hidden"); // Show generic network error
+                            feedbackError.textContent = `Error: ${error.message || 'There was a network error or problem with the server. Please try again.'}`;
+                            feedbackError.classList.remove("hidden");
                         }
                     } finally {
+                        // Always remove loading state and re-enable button if form is still visible
                         if (submitFeedbackBtn) {
                             submitFeedbackBtn.classList.remove('is-loading');
-                            // The button will remain disabled if the form is hidden
                             if (feedbackForm && !feedbackForm.classList.contains('hidden')) {
                                 submitFeedbackBtn.disabled = false;
                             }
                         }
                     }
                 });
-            } // End of if (feedbackForm)
-        }, 10); // End of setTimeout
-        // --- END ALL DOM ELEMENT REFERENCES AND EVENT LISTENERS MOVED INSIDE HERE ---
-    });
-</script>
+            } else {
+                console.warn("Feedback form element not found. Form submission will not work.");
+            }
+        });
+
+        // The 'beforeunload' event for 'pageUnloadTime' is generally unreliable for sending data
+        // because the browser might kill the process before the fetch completes.
+        // The current method of calculating timeOnPageMs at submission is more robust for study data.
+        // If you absolutely need to capture unload time for *all* exits, consider navigator.sendBeacon.
+        /*
+        window.addEventListener('beforeunload', () => {
+            const pageUnloadEndTime = new Date().getTime();
+            const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
+            const pageUnloadTimeField = document.getElementById('pageUnloadTime');
+            if (pageUnloadTimeField) {
+                pageUnloadTimeField.value = new Date().toISOString(); // More robust time string
+            }
+            // For sending data on unload, `fetch` might be blocked. `navigator.sendBeacon` is better.
+            // But since your design submits on button click, this part might not be strictly necessary for data.
+        });
+        */
+    </script>
 </body>
 </html>
