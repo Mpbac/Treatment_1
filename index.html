@@ -6,180 +6,182 @@
     <title>Car Buying Tips: Get a Good Deal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
-        :root {
-          --dartmouth-green: #00693e;
-          --forest-green: #228B22;
-          --off-white: #f8f8f8;
-        }
+    :root {
+      --dartmouth-green: #00693e;
+      --forest-green: #228B22;
+      --off-white: #f8f8f8;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--off-white);
-            padding: 20px;
-            color: #363636;
-        }
-        .container {
-            max-width: 700px; /* Adjusted to match index.html's form-card */
-            margin: 20px auto;
-            background-color: white; /* This background applies to the main content container */
-            padding: 20px; /* Adjusted padding */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow */
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .hero.is-primary.is-bold {
-          background-color: var(--dartmouth-green);
-          background-image: none; /* Ensure no default Bulma gradient */
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          margin-bottom: 20px;
-          border-radius: 10px 10px 0 0; /* Rounded top corners */
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--off-white);
+        padding: 20px;
+        color: #363636;
+    }
+    .container {
+        max-width: 700px; /* Adjusted to match index.html's form-card */
+        margin: 20px auto;
+        background-color: white; /* This background applies to the main content container */
+        padding: 20px; /* Adjusted padding */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .hero.is-primary.is-bold {
+      background-color: var(--dartmouth-green);
+      background-image: none; /* Ensure no default Bulma gradient */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      border-radius: 10px 10px 0 0; /* Rounded top corners */
+    }
 
-        /* --- START MODIFICATION --- */
-        .hero-body .container {
-          background-color: transparent; /* Changed from white to transparent */
-          display: flex;
-          align-items: center;
-          justify-content: flex-start; 
-          max-width: 700px; /* Ensure inner container matches outer form-card width */
-          margin: 0 auto; /* Center the content within the hero-body */
-          padding: 1rem 0; /* Adjust internal padding */
-        }
-        /* --- END MODIFICATION --- */
+    /* --- MODIFIED SECTION FOR INTEGRATED TITLE --- */
+    .hero-body .container {
+      background-color: transparent; /* Remains transparent as it's part of the hero */
+      display: flex;
+      align-items: center; /* Vertically center the logo and title */
+      justify-content: center; /* Center the logo and title horizontally within the hero-body's container */
+      max-width: 700px; /* Ensure inner container matches outer form-card width */
+      margin: 0 auto; /* Center the content within the hero-body */
+      padding: 1rem 0; /* Adjust internal padding as needed */
+    }
 
-       .hero .title {
-         color: white;
-         font-size: 2.5em;
-         font-weight: 600;
-         margin-left: 1.5rem;
-         margin-bottom: 0;
-       }
+   .hero .title {
+      color: white;
+      font-size: 2.5em;
+      font-weight: 600;
+      margin-left: 1.5rem; /* Space between logo and title */
+      margin-bottom: 0; /* Remove default bottom margin */
+      white-space: nowrap; /* Prevent title from wrapping unless explicitly broken */
+   }
 
-        .banner-logo {
-          max-height: 50px; /* Size of the logo */
-          width: auto;
-        }
+    .banner-logo {
+      max-height: 50px; /* Size of the logo */
+      width: auto;
+      /* Remove any specific positioning that might make it float */
+    }
+    /* --- END MODIFIED SECTION --- */
 
-        h2.subtitle {
-            color: var(--forest-green);
-            font-size: 1.5em; /* Slightly smaller for content sections */
-            margin-top: 20px;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-        p {
-            line-height: 1.6;
-            margin-bottom: 1em;
-        }
-        ul {
-            margin-bottom: 1em;
-            margin-left: 20px;
-        }
-        li {
-            margin-bottom: 0.5em;
-        }
-        .section-header {
-            font-weight: bold;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-        .cta-section {
-            background-color: #e6ffe6; /* Light green */
-            border-left: 5px solid var(--forest-green); /* Forest Green */
-            padding: 15px; /* Adjusted padding */
-            margin-top: 20px; /* Adjusted margin */
-            margin-bottom: 20px; /* Adjusted margin */
-            border-radius: 5px;
-        }
-        .feedback-section {
-            margin-top: 30px; /* Adjusted margin */
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-        }
-        .button.is-primary {
-            background-color: var(--dartmouth-green);
-            border-color: var(--dartmouth-green);
-            color: white;
-            font-weight: bold;
-        }
-        .button.is-primary:hover {
-            background-color: #005a34;
-            border-color: #005a34;
-        }
-        textarea {
-            min-height: 100px; /* Slightly smaller for better fit */
-            resize: vertical;
-        }
-        .footer-message {
-            margin-top: 30px; /* Adjusted margin */
+    h2.subtitle {
+        color: var(--forest-green);
+        font-size: 1.5em; /* Slightly smaller for content sections */
+        margin-top: 20px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+    }
+    p {
+        line-height: 1.6;
+        margin-bottom: 1em;
+    }
+    ul {
+        margin-bottom: 1em;
+        margin-left: 20px;
+    }
+    li {
+        margin-bottom: 0.5em;
+    }
+    .section-header {
+        font-weight: bold;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+    }
+    .cta-section {
+        background-color: #e6ffe6; /* Light green */
+        border-left: 5px solid var(--forest-green); /* Forest Green */
+        padding: 15px; /* Adjusted padding */
+        margin-top: 20px; /* Adjusted margin */
+        margin-bottom: 20px; /* Adjusted margin */
+        border-radius: 5px;
+    }
+    .feedback-section {
+        margin-top: 30px; /* Adjusted margin */
+        padding-top: 20px;
+        border-top: 1px solid #ddd;
+    }
+    .button.is-primary {
+        background-color: var(--dartmouth-green);
+        border-color: var(--dartmouth-green);
+        color: white;
+        font-weight: bold;
+    }
+    .button.is-primary:hover {
+        background-color: #005a34;
+        border-color: #005a34;
+    }
+    textarea {
+        min-height: 100px; /* Slightly smaller for better fit */
+        resize: vertical;
+    }
+    .footer-message {
+        margin-top: 30px; /* Adjusted margin */
+        text-align: center;
+        font-size: 0.9em; /* Slightly smaller font */
+        color: #555;
+        padding-top: 15px;
+        border-top: 1px dashed #ddd;
+    }
+    /* Specific Bulma overrides for form elements to match index.html more closely */
+    .field {
+        margin-bottom: 1rem;
+    }
+    .label {
+        font-weight: 600;
+        color: #363636;
+        margin-bottom: 0.5rem;
+    }
+    .control {
+        position: relative;
+    }
+    .radio {
+        margin-right: 1em;
+        cursor: pointer;
+    }
+    .textarea {
+        border-color: #dbdbdb;
+        box-shadow: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .textarea:focus {
+        border-color: var(--forest-green);
+        box-shadow: 0 0 0 0.125em rgba(34, 139, 34, 0.25); /* Green focus glow */
+    }
+    .message-box.is-success {
+        background-color: #e6ffe6;
+        color: var(--forest-green);
+        border: 1px solid var(--forest-green);
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .message-box.is-danger {
+        background-color: #ffe6e6;
+        color: #a30000;
+        border: 1px solid #a30000;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .hidden {
+        display: none !important;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-body .container {
+            flex-direction: column;
+            align-items: center;
+      }
+      .hero .title {
+            margin-left: 0;
             text-align: center;
-            font-size: 0.9em; /* Slightly smaller font */
-            color: #555;
-            padding-top: 15px;
-            border-top: 1px dashed #ddd;
-        }
-        /* Specific Bulma overrides for form elements to match index.html more closely */
-        .field {
-            margin-bottom: 1rem;
-        }
-        .label {
-            font-weight: 600;
-            color: #363636;
-            margin-bottom: 0.5rem;
-        }
-        .control {
-            position: relative;
-        }
-        .radio {
-            margin-right: 1em;
-            cursor: pointer;
-        }
-        .textarea {
-            border-color: #dbdbdb;
-            box-shadow: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        .textarea:focus {
-            border-color: var(--forest-green);
-            box-shadow: 0 0 0 0.125em rgba(34, 139, 34, 0.25); /* Green focus glow */
-        }
-        .message-box.is-success {
-            background-color: #e6ffe6;
-            color: var(--forest-green);
-            border: 1px solid var(--forest-green);
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .message-box.is-danger {
-            background-color: #ffe6e6;
-            color: #a30000;
-            border: 1px solid #a30000;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .hidden {
-            display: none !important;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-          .hero-body .container {
-               flex-direction: column;
-               align-items: center;
-          }
-          .hero .title {
-               margin-left: 0;
-               text-align: center;
-               font-size: 1.8em;
-               margin-top: 10px; /* Space between logo and title on small screens */
-          }
-          .banner-logo {
-               margin-bottom: 0; /* No extra margin on small screens as title is below */
-          }
-        }
-    </style>
+            font-size: 1.8em;
+            margin-top: 10px; /* Space between logo and title on small screens */
+      }
+      .banner-logo {
+            margin-bottom: 0; /* No extra margin on small screens as title is below */
+      }
+    }
+</style>
 
 
 </head>
