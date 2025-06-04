@@ -253,7 +253,7 @@
         // !!! REPLACE with your actual Google Apps Script Web App URL for treatment page data submission !!!
         const treatmentScriptURL = "https://script.google.com/macros/s/AKfycbz74V9JXvlPx80mveoft0ODn9gm2z-YMqUijFoPZt3vy44CpOyOTwQJy8ADkuMDIVzcjg/exec"; // ** IMPORTANT: Change this **
 
-        const timeSpentField = document.getElementById('timeSpentField');
+       const timeSpentField = document.getElementById('timeSpentField');
     const pageLoadTimeField = document.getElementById('pageLoadTime');
     const pageUnloadTimeField = document.getElementById('pageUnloadTime');
     const submissionTimestampField = document.getElementById('submissionTimestamp');
@@ -284,29 +284,35 @@
         }
 
         // --- ALL DOM ELEMENT REFERENCES AND EVENT LISTENERS MOVED INSIDE HERE ---
-        setTimeout(() => {
-                const feedbackForm = document.getElementById('feedbackForm');
-                const feedbackThankYou = document.getElementById('feedback-thank-you');
-                const feedbackError = document.getElementById('feedback-error');
-                const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+        // Added setTimeout for a tiny delay to ensure DOM is fully ready, as a last resort
+        setTimeout(() => { // Added setTimeout
+            const feedbackForm = document.getElementById('feedbackForm');
+            const feedbackThankYou = document.getElementById('feedback-thank-you');
+            const feedbackError = document.getElementById('feedback-error');
+            const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
 
-                // Check if elements are found (for debugging)
-                if (!feedbackForm) console.error("feedbackForm not found!");
-                if (!feedbackThankYou) console.error("feedbackThankYou not found!");
-                if (!feedbackError) console.error("feedbackError not found!");
-                if (!submitFeedbackBtn) console.error("submitFeedbackBtn not found!");
+            // Optional: Log if elements are not found for debugging, but don't crash
+            if (!feedbackForm) console.warn("Element 'feedbackForm' not found.");
+            if (!feedbackThankYou) console.warn("Element 'feedback-thank-you' not found.");
+            if (!feedbackError) console.warn("Element 'feedback-error' not found.");
+            if (!submitFeedbackBtn) console.warn("Element 'submitFeedbackBtn' not found.");
 
 
+            if (feedbackForm) { // Ensure form element exists before adding listener
                 feedbackForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
 
                     // Hide messages from previous attempts at the start of submission
-                    feedbackThankYou.classList.add('hidden');
-                    feedbackError.classList.add('hidden');
-                    feedbackError.textContent = ''; // Clear any previous error text
+                    if (feedbackThankYou) feedbackThankYou.classList.add('hidden');
+                    if (feedbackError) {
+                        feedbackError.classList.add('hidden');
+                        feedbackError.textContent = ''; // Clear any previous error text
+                    }
 
-                    submitFeedbackBtn.classList.add('is-loading'); // Show spinner
-                    submitFeedbackBtn.disabled = true; // Disable button
+                    if (submitFeedbackBtn) {
+                        submitFeedbackBtn.classList.add('is-loading'); // Show spinner
+                        submitFeedbackBtn.disabled = true; // Disable button
+                    }
 
                     const pageUnloadEndTime = new Date().getTime(); // Capture time at submission
                     const timeOnPageMs = pageUnloadEndTime - pageLoadStartTime;
@@ -337,26 +343,33 @@
 
                         const data = await response.json();
                         if (data && data.status === "success") {
-                            feedbackThankYou.classList.remove("hidden"); // Show success message
-                            feedbackForm.classList.add("hidden"); // Hide the form
+                            if (feedbackThankYou) feedbackThankYou.classList.remove("hidden"); // Show success message
+                            if (feedbackForm) feedbackForm.classList.add("hidden"); // Hide the form
                         } else {
                             console.error('Submission failed:', data.message);
-                            feedbackError.textContent = data.message || 'Submission failed.';
-                            feedbackError.classList.remove("hidden"); // Show specific submission error
+                            if (feedbackError) {
+                                feedbackError.textContent = data.message || 'Submission failed.';
+                                feedbackError.classList.remove("hidden"); // Show specific submission error
+                            }
                         }
                     } catch (error) {
                         console.error('Error submitting feedback:', error);
-                        feedbackError.textContent = 'There was a network error or problem with the server. Please try again.';
-                        feedbackError.classList.remove("hidden"); // Show generic network error
+                        if (feedbackError) {
+                            feedbackError.textContent = 'There was a network error or problem with the server. Please try again.';
+                            feedbackError.classList.remove("hidden"); // Show generic network error
+                        }
                     } finally {
-                        submitFeedbackBtn.classList.remove('is-loading');
-                        // The button will remain disabled if the form is hidden
-                        if (!feedbackForm.classList.contains('hidden')) {
-                            submitFeedbackBtn.disabled = false;
+                        if (submitFeedbackBtn) {
+                            submitFeedbackBtn.classList.remove('is-loading');
+                            // The button will remain disabled if the form is hidden
+                            if (feedbackForm && !feedbackForm.classList.contains('hidden')) {
+                                submitFeedbackBtn.disabled = false;
+                            }
                         }
                     }
                 });
-            }, 10);
+            } // End of if (feedbackForm)
+        }, 10); // End of setTimeout
         // --- END ALL DOM ELEMENT REFERENCES AND EVENT LISTENERS MOVED INSIDE HERE ---
     });
 </script>
