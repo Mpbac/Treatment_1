@@ -6,32 +6,64 @@
     <title>Car Buying Tips: Get a Good Deal</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
+        :root {
+          --dartmouth-green: #00693e;
+          --forest-green: #228B22;
+          --off-white: #f8f8f8;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f8f8;
+            background-color: var(--off-white);
             padding: 20px;
             color: #363636;
         }
         .container {
-            max-width: 800px;
+            max-width: 700px; /* Adjusted to match index.html's form-card */
             margin: 20px auto;
             background-color: white;
-            padding: 40px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            padding: 20px; /* Adjusted padding */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            border-radius: 10px;
+            overflow: hidden;
         }
-        h1.title {
-            color: #00693e; /* Dartmouth Green */
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-align: center;
+        /* Styles for the top banner/hero section, similar to index.html */
+        .hero.is-primary.is-bold {
+          background-color: var(--dartmouth-green);
+          background-image: none; /* Ensure no default Bulma gradient */
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          margin-bottom: 20px;
+          border-radius: 10px 10px 0 0; /* Rounded top corners */
         }
+
+        .hero-body .container {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start; /* Align content to start */
+          max-width: 700px; /* Ensure inner container matches outer form-card width */
+          margin: 0 auto; /* Center the content within the hero-body */
+          padding: 1rem 0; /* Adjust internal padding */
+        }
+
+        .hero .title {
+          color: white;
+          font-size: 2.0em;
+          font-weight: 600;
+          margin-left: 1.5rem; /* Space between logo and title */
+          margin-bottom: 0;
+        }
+
+        .banner-logo {
+          max-height: 50px; /* Size of the logo */
+          width: auto;
+        }
+
         h2.subtitle {
-            color: #228B22; /* Forest Green */
-            font-size: 1.8em;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #eee;
+            color: var(--forest-green);
+            font-size: 1.5em; /* Slightly smaller for content sections */
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
         p {
@@ -52,20 +84,20 @@
         }
         .cta-section {
             background-color: #e6ffe6; /* Light green */
-            border-left: 5px solid #228B22; /* Forest Green */
-            padding: 20px;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            border-left: 5px solid var(--forest-green); /* Forest Green */
+            padding: 15px; /* Adjusted padding */
+            margin-top: 20px; /* Adjusted margin */
+            margin-bottom: 20px; /* Adjusted margin */
             border-radius: 5px;
         }
         .feedback-section {
-            margin-top: 40px;
+            margin-top: 30px; /* Adjusted margin */
             padding-top: 20px;
             border-top: 1px solid #ddd;
         }
         .button.is-primary {
-            background-color: #00693e;
-            border-color: #00693e;
+            background-color: var(--dartmouth-green);
+            border-color: var(--dartmouth-green);
             color: white;
             font-weight: bold;
         }
@@ -74,25 +106,91 @@
             border-color: #005a34;
         }
         textarea {
-            min-height: 120px;
+            min-height: 100px; /* Slightly smaller for better fit */
             resize: vertical;
         }
         .footer-message {
-            margin-top: 40px;
+            margin-top: 30px; /* Adjusted margin */
             text-align: center;
-            font-size: 1.1em;
+            font-size: 0.9em; /* Slightly smaller font */
             color: #555;
-            padding-top: 20px;
+            padding-top: 15px;
             border-top: 1px dashed #ddd;
+        }
+        /* Specific Bulma overrides for form elements to match index.html more closely */
+        .field {
+            margin-bottom: 1rem;
+        }
+        .label {
+            font-weight: 600;
+            color: #363636;
+            margin-bottom: 0.5rem;
+        }
+        .control {
+            position: relative;
+        }
+        .radio {
+            margin-right: 1em;
+            cursor: pointer;
+        }
+        .textarea {
+            border-color: #dbdbdb;
+            box-shadow: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .textarea:focus {
+            border-color: var(--forest-green);
+            box-shadow: 0 0 0 0.125em rgba(34, 139, 34, 0.25); /* Green focus glow */
+        }
+        .message-box.is-success {
+            background-color: #e6ffe6;
+            color: var(--forest-green);
+            border: 1px solid var(--forest-green);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .message-box.is-danger {
+            background-color: #ffe6e6;
+            color: #a30000;
+            border: 1px solid #a30000;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .hero-body .container {
+               flex-direction: column;
+               align-items: center;
+          }
+          .hero .title {
+               margin-left: 0;
+               text-align: center;
+               font-size: 1.8em;
+               margin-top: 10px; /* Space between logo and title on small screens */
+          }
+          .banner-logo {
+               margin-bottom: 0; /* No extra margin on small screens as title is below */
+          }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">Car Buying Tips: Get a Good Deal on Your Upcoming Purchase and Loan</h1>
+    <section class="hero is-primary is-bold">
+        <div class="hero-body">
+          <div class="container">
+            <img src="D-Pine_Rev.png" alt="Dartmouth College Logo" class="banner-logo">
+            <h1 class="title">Car Buying Tips: Get a Good Deal</h1>
+          </div>
+        </div>
+      </section>
 
+    <div class="container">
         <div class="cta-section has-text-centered">
-            <p class="is-size-5">One more thing: here are some tips for how to get a good deal on your upcoming car purchase and loan. Feel free to bookmark this page or <a href="Treatment content.pdf" download="Car_Buying_Tips.pdf">download a PDF of these tips</a>.</p>
+            <p class="is-size-6">One more thing: here are some tips for how to get a good deal on your upcoming car purchase and loan. Feel free to bookmark this page or <a href="Treatment content.pdf" download="Car_Buying_Tips.pdf">download a PDF of these tips</a>.</p>
         </div>
 
         <h2 class="subtitle">1) Avoiding Add-Ons & Hidden Costs (Extra Charges & Fees)</h2>
@@ -108,7 +206,7 @@
         <p>Also, make sure all costs are listed clearly on the purchase agreement so nothing is hidden in the fine print. Focus on the “out-the-door price”—what you’re actually paying in total. By keeping an eye on add-ons, you can avoid paying for things you don’t need and save money.</p>
 
         <div class="feedback-section">
-            <p class="is-size-5 has-text-centered mb-4">Please help our study by answering two more questions:</p>
+            <p class="is-size-6 has-text-centered mb-3">Please help our study by answering two more questions:</p>
 
             <form id="feedbackForm">
                 <input type="hidden" id="timeSpentField" name="timeSpentOnPageMs" value="0">
@@ -116,7 +214,6 @@
                 <input type="hidden" id="pageUnloadTime" name="pageUnloadTime" value="">
                 <input type="hidden" id="submissionTimestamp" name="submissionTimestamp" value="">
                 <input type="hidden" id="demographicsSubmissionId" name="demographicsSubmissionId" value="">
-
 
                 <div class="field">
                     <label class="label">Are these tips useful?</label>
@@ -141,10 +238,10 @@
                     <button class="button is-primary" type="submit" id="submitFeedbackBtn">Submit Feedback</button>
                 </div>
             </form>
-            <div id="feedback-thank-you" class="message-box is-success hidden mt-4">
+            <div id="feedback-thank-you" class="message-box is-success hidden mt-3">
                 <p>Thank you for your feedback!</p>
             </div>
-            <div id="feedback-error" class="message-box is-danger hidden mt-4">
+            <div id="feedback-error" class="message-box is-danger hidden mt-3">
                 <p>There was an error submitting your feedback. Please try again.</p>
             </div>
         </div>
@@ -198,7 +295,7 @@
         });
 
         const feedbackForm = document.getElementById('feedbackForm');
-        const feedbackThankYou = document.getElementById('feedback-thank-you');
+        const feedbackThankYou = document.getElementById('feedback-thank-ou');
         const feedbackError = document.getElementById('feedback-error');
         const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
 
