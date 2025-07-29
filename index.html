@@ -41,17 +41,18 @@
     .hero-body .container {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between; /* Changed to space-between for logos and title */
       max-width: 700px;
       margin: 0 auto;
       padding: 1rem 0;
+      background-color: transparent; /* Ensure transparency */
     }
 
    .hero .title {
       color: white; /* Ensure title color is white */
       font-size: 2.5em;
       font-weight: 600;
-      margin-left: 1.5rem;
+      /* Removed margin-left to allow space-between to work */
       margin-bottom: 0;
       white-space: nowrap;
    }
@@ -60,6 +61,20 @@
       max-height: 50px;
       width: auto;
     }
+
+    .cr-logo { /* New style for CR Reports logo */
+      max-height: 50px;
+      width: auto;
+    }
+
+    /* New style for the group containing Dartmouth logo and title */
+    .header-left-group {
+        display: flex;
+        align-items: center;
+        /* Removed margin-left from .hero .title, so add space here if needed */
+        gap: 1.5rem; /* Space between Dartmouth logo and title */
+    }
+
 
     h2.subtitle {
         color: var(--forest-green);
@@ -282,6 +297,7 @@
       .hero-body .container {
             flex-direction: column;
             align-items: center;
+            justify-content: center; /* Center content when stacked */
       }
       .hero .title {
             margin-left: 0;
@@ -289,8 +305,16 @@
             font-size: 1.8em;
             margin-top: 10px;
       }
-      .banner-logo {
-            margin-bottom: 0;
+      .banner-logo, .cr-logo { /* Apply to both logos */
+            margin-bottom: 0; /* Adjust as needed for spacing when stacked */
+      }
+      .hero-body .container > *:not(.title) { /* Target logos specifically */
+            margin-bottom: 10px; /* Add space between stacked logos/title */
+      }
+      .header-left-group {
+        flex-direction: column; /* Stack logo and title on small screens */
+        gap: 0.5rem; /* Smaller gap when stacked */
+        text-align: center;
       }
     }
     .image-container {
@@ -410,8 +434,11 @@
     <section class="hero is-primary is-bold">
     <div class="hero-body">
       <div class="container">
-        <img src="D-Pine_Rev.png" alt="Dartmouth College Logo" class="banner-logo">
-        <h1 class="title">Car Buying Tips: Get a Good Deal</h1>
+        <div class="header-left-group">
+            <img src="https://placehold.co/100x50/00693e/FFFFFF?text=Dartmouth+Logo" alt="Dartmouth College Logo" class="banner-logo">
+            <h1 class="title">Car Buying Tips: Get a Good Deal</h1>
+        </div>
+        <img src="https://placehold.co/100x50/00693e/FFFFFF?text=CR+Logo" alt="CR Reports Logo" class="cr-logo">
       </div>
     </div>
   </section>
