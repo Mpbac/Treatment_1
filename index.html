@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Buying Tips: Get a Good Deal</title>
+    <title>Pro Tips for Car Buying</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <style>
     :root {
@@ -72,67 +72,100 @@
     }
 
     /* Custom List Styling for PDF-like format */
-    ol {
-        list-style: none; /* Remove default numbering */
-        padding-left: 0;
-        margin-left: 20px; /* Base indentation for all ordered lists */
-        margin-bottom: 1em;
+    .content-section-list {
+        list-style: none; /* Remove default numbering for the main list */
+        padding-left: 0; /* Start main list at the very left edge of its container */
+        counter-reset: main-item; /* Reset main counter */
+        margin-left: 0; /* Remove any default UL/OL margins */
     }
 
-    ol > li {
+    .content-section-list > li {
         position: relative;
         margin-bottom: 0.5em;
-        padding-left: 1.5em; /* Space for custom counter */
-    }
-
-    /* Counter for top-level 1., 2., 3. */
-    .content-section-list {
-        counter-reset: item; /* Reset main counter for each section */
+        /* Padding to make space for the number and align content */
+        padding-left: 2em; /* Sufficient space for "X. " */
     }
 
     .content-section-list > li:before {
-        content: counter(item) ". ";
-        counter-increment: item;
+        content: counter(main-item) ". ";
+        counter-increment: main-item;
         position: absolute;
-        left: 0;
+        left: 0; /* Position the number at the start of the padding-left */
         font-weight: bold;
     }
 
-    /* Counter for sub-level a., b., c. */
+    /* Nested alphabetical list (a., b., c.) */
     .content-section-list ol[type="a"] {
-        padding-left: 0;
-        margin-left: 20px;
-        counter-reset: alpha_item; /* Reset for each new 'a' list */
-    }
-    .content-section-list ol[type="a"] > li:before {
-        content: counter(alpha_item, lower-alpha) ". ";
-        counter-increment: alpha_item;
-        position: absolute;
-        left: 0;
-        font-weight: normal; /* a. b. c. are not bold in PDF */
+        list-style: none; /* Remove default bullets */
+        padding-left: 2em; /* Indent this level further from its parent li */
+        margin-left: 0; /* No extra margin on the OL itself */
+        counter-reset: sub-item-alpha; /* Reset alphabetical counter */
     }
 
-    /* Counter for sub-sub-level i., ii., iii. */
-    .content-section-list ol[type="i"] {
-        padding-left: 0;
-        margin-left: 20px;
-        counter-reset: roman_item; /* Reset for each new 'i' list */
-    }
-    .content-section-list ol[type="i"] > li:before {
-        content: counter(roman_item, lower-roman) ". ";
-        counter-increment: roman_item;
-        position: absolute;
-        left: 0;
-        font-style: italic; /* i. ii. iii. are italicized in PDF */
-    }
-
-    /* Ensure bullets are not shown for any list */
-    ul {
-        list-style: none;
-        padding-left: 20px; /* Maintain consistent indentation */
-    }
-    li {
+    .content-section-list ol[type="a"] > li {
+        position: relative;
         margin-bottom: 0.5em;
+        padding-left: 2em; /* Space for the "a. " number */
+    }
+
+    .content-section-list ol[type="a"] > li:before {
+        content: counter(sub-item-alpha, lower-alpha) ". ";
+        counter-increment: sub-item-alpha;
+        position: absolute;
+        left: 0;
+        font-weight: normal;
+    }
+
+    /* Nested Roman numeral list (i., ii., iii.) */
+    .content-section-list ol[type="i"] {
+        list-style: none; /* Remove default bullets */
+        padding-left: 2em; /* Indent this level further */
+        margin-left: 0;
+        counter-reset: sub-item-roman; /* Reset Roman counter */
+    }
+
+    .content-section-list ol[type="i"] > li {
+        position: relative;
+        margin-bottom: 0.5em;
+        padding-left: 2.5em; /* Space for the "i. " number (might need more) */
+    }
+
+    .content-section-list ol[type="i"] > li:before {
+        content: counter(sub-item-roman, lower-roman) ". ";
+        counter-increment: sub-item-roman;
+        position: absolute;
+        left: 0;
+        font-style: italic;
+    }
+
+    /* Nested numerical list (1., 2. for examples) */
+    .content-section-list ol[type="1"] {
+        list-style: none; /* Remove default bullets */
+        padding-left: 2em; /* Indent this level further */
+        margin-left: 0;
+        counter-reset: sub-item-num; /* Reset numerical counter */
+    }
+
+    .content-section-list ol[type="1"] > li {
+        position: relative;
+        margin-bottom: 0.5em;
+        padding-left: 2.5em; /* Space for the "1. " number */
+    }
+
+    .content-section-list ol[type="1"] > li:before {
+        content: counter(sub-item-num) ". ";
+        counter-increment: sub-item-num;
+        position: absolute;
+        left: 0;
+        font-weight: normal;
+    }
+
+
+    /* Ensure Bulma's default ULs are styled appropriately if used outside these custom OLs */
+    ul {
+        list-style: disc; /* Re-enable default disc bullets for regular ul if needed */
+        padding-left: 20px; /* Default Bulma or browser indentation */
+        margin-left: 0; /* Remove extra custom margin */
     }
 
 
@@ -285,143 +318,134 @@
     <div class="hero-body">
       <div class="container">
         <img src="D-Pine_Rev.png" alt="Dartmouth College Logo" class="banner-logo">
-        <h1 class="title">Car Buying Tips: Get a Good Deal</h1>
+        <h1 class="title">Pro Tips for Car Buying</h1>
       </div>
     </div>
   </section>
 <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
     <div class="message-box is-success" style="padding: 15px; border-radius: 8px;">
         <p> <strong>Thanks for completing the enrollment form. Please check the email used in enrollment to receive your $5!</strong></p>
-       <p> <strong>And remember to share pictures of your paperwork if you end up buying a car in the next month or so! If you do we will send you an additional $20 giftcard! Check out our <a href="https://mpbac.github.io/Auto_contract_uploader/" target="_blank">uploader</a> if you want a preview. We will reach out in a couple of weeks to remind you. <strong></p>
+       <p> <strong>And remember to share pictures of your paperwork if you end up buying a car in the next month or so! If you do we will send you an additional $20 giftcard! Check out our <a href="https://documentportal.carbuyingstudy.host.dartmouth.edu" target="_blank">uploader</a> if you want a preview. We will reach out in a couple of weeks to remind you. <strong></p>
     </div>
 </div>
     <div class="container">
         <div class="cta-section">
-            <p class="is-size-6">One more thing: here are some tips for how to get a good deal on your upcoming car purchase and loan. Feel free to bookmark this page or <a href="Treatment Content_V6.pdf" download="Car_Buying_Tips.pdf">download a PDF of these tips</a>.</p>
+            <p class="is-size-6">Here are some pro tips for how to get a good deal on your upcoming car purchase and loan. Feel free to bookmark this page or <a href="Treatment Content_V6.pdf" download="Car_Buying_Tips.pdf">download a PDF of these tips</a>.</p>
         </div>
 
         <h2 class="subtitle">Part I. Before Contacting a Dealer</h2>
 
-        <!-- Section 1 -->
         <ol class="content-section-list">
             <li>
-                <h3 class="section-header">Research Which Vehicle and Price are Right for you</h3>
+                <h3 class="section-header">Research Your Target Vehicle</h3>
                 <ol type="a">
-                    <li>Clarify your priorities: List your "must-have" features (e.g., all-wheel drive, advanced safety tech) </li>
-                    <li>Narrow the field: Filter by vehicle class (e.g., compact, SUV, midsize sedan) </li>
-                    <li>Check reviews from a trusted source like Consumer Reports, Cars.com, or KBB </li>
-                    <li>Decide on a make, model, and year (e.g., a 2025 Ford F-150) </li>
-                    <li>Drill down on trims and options: Identify which trim level offers your required features at the best value. </li>
-                    <li>Get a ballpark of what you should be paying. Check a trusted source like [TrueCar, Cars.com, Edmunds] for what people in your area are paying for your target vehicle. </li>
+                    <li>Must haves: Good road test performance, average or better reliability, average or better owner satisfaction, good crash test performance. (Recommend: automatic emergency braking, blind spot warning, rear cross traffic warning.)</li>
+                    <li>Key features: What are the most important features to you (e.g., all-wheel drive, seating, safety rating, cargo space)?</li>
+                    <li>Narrow the options: Pick a vehicle type (compact, midsize sedan, SUV), choose a make and model (e.g., Ford F-150), select a trim that fits your needs (e.g., XLT or Platinum), and review trusted insights from Consumer Reports, Cars.com, or KBB.</li>
+                    <li>Get a ballpark of what you should be paying. Check a trusted source like TrueCar, Cars.com, or Edmunds for what people in your area are paying for your target vehicle.</li>
+                    <li>Your budget should factor in the purchase, fees, taxes, and insurance, which will likely be higher on a new car.</li>
                 </ol>
                 <div class="image-container">
-                    <img src="1-3.png" alt="Description of the image" class="content-image-small">
+                    <img src="1-3.png" alt="Consumer Reports screen" class="content-image-small">
                 </div>
             </li>
 
-            <!-- Section 2 -->
             <li>
-                <h3 class="section-header">Get A Bank or Credit-Union Pre-Approval</h3>
+                <h3 class="section-header">Line up outside financing</h3>
                 <ol type="a">
-                    <li>Financing rates & terms are negotiable! Dealers profit when you pay more. </li>
-                    <li>Shop other lenders for pre-approval: A bank or credit-union pre-approval can give you a lower rate, forcing dealers to beat it. </li>
+                    <li>Get pre-approval for a loan (<a href="#">how to check</a>) directly from a bank or credit union.</li>
+                    <li>Then insist that the dealer that offer to trim your loan cost and lower your monthly payment (see Step 5e).</li>
                 </ol>
                 <div class="image-container">
-                    <img src="4-3.png" alt="Description of the image" class="content-image-small">
+                    <img src="4-3.png" alt="Credit Union vs Dealership APR" class="content-image-small">
                 </div>
             </li>
 
-            <!-- Section 3 -->
             <li>
-                <h3 class="section-header">Research Your Trade-In Separately</h3>
+                <h3 class="section-header">Know your trade-in's value</h3>
                 <ol type="a">
-                    <li>Get a ballpark of what you should be getting: Get at least two independent value estimates from trusted sources like Consumer Reports or Kelley Blue Book (KBB) </li>
+                    <li>If you plan to sell your old car, get at least two independent wholesale value estimates, such as from Consumer Reports or Kelley Blue Book (KBB).</li>
                 </ol>
                 <div class="image-container">
-                    <img src="3-4.png" alt="Description of the image" class="content-image-small">
+                    <img src="3-4.png" alt="CR Car Value Estimator" class="content-image-small">
                 </div>
             </li>
-        </ol> <!-- End Part I sections -->
+        </ol>
 
         <h2 class="subtitle">Part II. Dealing with Dealers</h2>
 
-        <ol class="content-section-list" start="4"> <!-- Start from 4 for Part II -->
-            <!-- Section 4 -->
+        <ol class="content-section-list" start="4">
             <li>
-                <h3 class="section-header">Shop Around for Your Exact Vehicle</h3>
+                <h3 class="section-header">Lock down your deal before setting foot in a dealership!</h3>
                 <ol type="a">
-                    <li>Don't just take the first offer! Not shopping around can cost you thousands. </li>
-                    <li>Insist on getting the Out-the-Door (OTD) price: Make sure the quote shows the car's base cost plus every fee.
-                        <ol type="i">
-                            <li>Example of what to say: "Could you give me the bottom-line out-the-door price with no surprises on fees or addons?" </li>
-                        </ol>
-                    </li>
-                    <li>Get several OTD prices: Email, call, or visit at least three dealers. </li>
-                    <li>While you're at it, get separate quotes for financing (you'll need your credit score handy for this) and your trade-in, if you have one.
-                        <ol type="i">
-                            <li>Example of what to say: "What's the APR you're offering for my credit score? Can you quote me the total cost with and without financing through you?" </li>
-                            <li>Example of what to say: "If I trade this in today, how much will I get back after all fees?" </li>
-                        </ol>
-                    </li>
+                    <li>Before you go to a dealership, use email to get initial offers from multiple dealers and then negotiate better offers.</li>
+                    <li>See Step 5 for pro tips on getting and negotiating offers: The more you can get in writing before setting foot in a dealership, the better deal you'll get!</li>
+                    <li>Dealers may contact you after you check what you should be paying for your desired vehicle in Step 1c. Or it might be you making the first contact: You can find the Internet Sales Manager and/or Sales Reps on dealership websites. Either way...</li>
                 </ol>
                 <div class="image-container">
-                    <img src="2-1.png" alt="Description of the image" class="content-image-small">
+                    <img src="2-1.png" alt="Shop Around & Get Best OTD Price" class="content-image-small">
                 </div>
             </li>
 
-            <!-- Section 5 -->
             <li>
-                <h3 class="section-header">Negotiate Like a Pro</h3>
+                <h3 class="section-header">Use email to shop around smartly</h3>
                 <ol type="a">
-                    <li>Negotiate each part of the deal separately! Dealers try to bundle together the car, financing, trade-in, and add-ons to keep you from negotiating effectively.
+                    <li>Email several dealers to request initial offers for the following separate pieces of your car-buying transaction, using our negotiation tools (<a href="#">sample scripts or AI assistant</a>):
                         <ol type="i">
-                            <li>Example of what to say: "We can talk about what you have to offer on financing after we finalize the price of the car." </li>
-                            <li>Another example: "We can talk about my potential trade-in later, after we finalize the price of the car." </li>
+                            <li>Out-the-door (OTD) price: one all-inclusive figure that covers all taxes and fees, with no hidden costs or add-ons later. Do not include your trade-in (see next step)!</li>
+                            <li>A separate, all-in trade-in offer: Keep the trade-in separate from the OTD price and ask for the exact check amount they would write you today with no last-minute changes. Make sure the offer is valid for at least seven days so you have time to compare.</li>
+                            <li>Financing offer: a separate financing quote that details the interest rate (APR), loan term, and required down payment, tailored to your current credit score (<a href="#">how to look up your score</a>).</li>
                         </ol>
                     </li>
-                    <li>Focus on prices and rates, not monthly payments. Getting you focused on the monthly almost always lines the dealer's pocket at your expense.
+                    <li>Negotiate by email! Their initial offer is rarely their final one....
                         <ol type="i">
-                            <li>Example of what to say: "I'm not focused on the monthly payment- that's the oldest sales trick in the book! I'm focused on the out-the-door price." </li>
+                            <li>Negotiate each part of the deal separately! Dealers try to bundle together the car, financing, trade-in, and add-ons to keep you from negotiating effectively. See our (<a href="#">scripts</a>) or just write:
+                                <ol type="1">
+                                    <li>"We can talk about what you have to offer on financing after we finalize the price of the car." OR</li>
+                                    <li>"We can talk about my potential trade-in later, after we finalize the price of the car."</li>
+                                </ol>
+                            </li>
+                            <li>Focus on prices and rates, not just monthly payments. Dealers profit at your expense when they sell you on the monthly payment instead of the overall price.
+                                <ol type="1">
+                                    <li>Try saying: "I'm not focused on the monthly payment-let's talk about the out-the-door price."</li>
+                                    <li>Then, you can further lower your monthly payment by negotiating a longer term: "I have a loan pre-approval for 72 months at []% APR. Can you beat/match that?"</li>
+                                </ol>
+                            </li>
                         </ol>
                     </li>
-                    <li>Leverage your outside offers (see Steps 2-4, and 6). Be ready to walk away if the dealer doesn't meet or beat them.
+                    <li>Decline unnecessary add-ons: Dealers add overpriced add-ons (e.g., extended warranties, service contracts, coating, GAP insurance, etc.). Just say no to anything you haven't researched and decided you need!</li>
+                    <li>Trash junk fees. Many dealers add unnecessary fees-you should refuse to pay these. See our (<a href="#">Checklist</a>) for what's legit and what's not.</li>
+                    <li>Leverage your outside offers. Be ready to walk away if the dealer doesn't meet or beat them. Try saying:
                         <ol type="i">
-                            <li>Example of what to say on car or trade-in price: "I have an offer for $ from another dealer. Can you beat that?" </li>
-                            <li>Example of what to say on financing: "I have an offer for _% for months with no fees and no money down. Can you beat that?" </li>
+                            <li>"I have an out-the-door quote for $ from another dealer. Can you beat that?"</li>
+                            <li>I have an offer for % for months with no fees and no money down. Can you beat that?"</li>
                         </ol>
                     </li>
-                    <li>Firm up as much as you can before you even set foot in the dealership. Once you're at the dealer, they will try to wear you down and create time pressure. </li>
                 </ol>
             </li>
 
-            <!-- Section 6 -->
             <li>
-                <h3 class="section-header">Deny Add-Ons and Junk Fees, Defend Your Dollars</h3>
+                <h3 class="section-header">Go to the dealership to complete the transaction!</h3>
                 <ol type="a">
-                    <li>Decline unnecessary add-ons: Dealers add overpriced "must-have" add-ons (e.g., extended warranties, service contracts, coating, GAP insurance, etc.). Just say no to anything you haven't researched and decided you need!
-                        <ol type="i">
-                            <li>Example of what to say: "No thanks, I don't need that" </li>
-                            <li>Example of what to say: "No thanks, I'm going aftermarket on that" </li>
-                        </ol>
-                    </li>
-                    <li>Arm yourself with aftermarket offers: IF you're interested in a particular add-on, shop for it first, just like you did for the car itself!
-                        <ol type="i">
-                            <li>Example of what to say: "No thanks, I found a much better deal with" </li>
-                            <li>Example of what to say: "Here's my quote from an aftermarket dealer. Can you beat it?" </li>
-                        </ol>
-                    </li>
-                    <li>Junk the junk fees: Dealers add both required fees (e.g., sales tax, title, registration, and licensing, doc fee) and optional charges not tied to any legal or real expense (e.g., dealer prep, advertising, VIN etching, market adjustment).
-                        <ol type="i">
-                            <li>Example of what to say: "I see there's a $X VIN etching. I don't need it, please strike it from the out-the-door price." </li>
-                            <li>Another example of what to say: "Can you remove the $X market adjustment? Similar models are selling at $Y." </li>
-                        </ol>
-                    </li>
+                    <li>If the dealer tries to change the deal, show them what you have in writing.</li>
+                    <li>Repeat Step 5, as needed.</li>
+                    <li>Sign on the dotted lines to close your good deal!</li>
+                    <li>Enjoy your new vehicle!</li>
                 </ol>
-                <div class="image-container">
-                    <img src="2.png" alt="Description of the image" class="content-image-small">
-                </div>
             </li>
-        </ol> <!-- End Part II sections -->
+
+            <li>
+                <h3 class="section-header">Send us pics of your paperwork to get a $20 gift card!</h3>
+                <p>(scan code at right)</p> <!-- Note: QR code image not provided, keeping text placeholder -->
+            </li>
+
+            <li>
+                <h3 class="section-header">Additional Resources</h3>
+                <p>Ask CR</p>
+                <p><a href="https://www.consumerreports.org/askcr/" target="_blank">https://www.consumerreports.org/askcr/</a></p>
+                <p>Car Buying Newsletter</p>
+            </li>
+        </ol>
 
         <div class="feedback-section">
             <p class="is-size-6 mb-3">Please help our study by answering two more questions:</p>
