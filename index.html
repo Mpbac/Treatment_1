@@ -88,7 +88,7 @@
 
     /* Custom List Styling for PDF-like format */
     .content-section-list {
-        font-size: 1.5em;
+        /* Removed font-size from here to allow individual control */
         list-style: none; /* Remove default numbering for the main list */
         padding-left: 0; /* Start main list at the very left edge of its container */
         counter-reset: main-item; /* Reset main counter once for the whole list */
@@ -111,6 +111,7 @@
         left: 0; /* Position the number at the start of the padding-left */
         font-weight: bold; /* Make main numbers bold */
         color: var(--dartmouth-green);
+        font-size: 1.3em; /* Set font size to match section header */
     }
 
     /* Nested alphabetical list (a., b., c.) */
@@ -199,7 +200,7 @@
 
 
     .section-header {
-        font-size: 1.3em;
+        font-size: 1.3em; /* Set font size for header */
         color: var(--dartmouth-green);
         font-weight: bold; /* Make section headers bold */
         margin-top: 0;
@@ -520,59 +521,72 @@
                 <div class="content-body-flex">
                     <div class="text-column">
                         <ol type="a">
-                            <li><strong>Before you go to a dealership, use email to get initial offers<strong> from multiple dealers and then negotiate better offers.</li>
-                            <li><strong>See Step 5 for pro tips on getting and negotiating offers:<strong> The more you can get in writing before setting foot in a dealership, the better deal you'll get!</li>
-                            <li><strong>Dealers may contact you<strong> after you check what you should be paying for your desired vehicle in Step 1c. <strong>Or it might be you making the first contact:<strong> You can find the Internet Sales Manager and/or Sales Reps on dealership websites. Either way...</li>
+                            <li><strong>Before you go to a dealership, use email to get initial offers</strong> from multiple dealers and then negotiate better offers.</li>
+                            <li><strong>See Step 5 for pro tips on getting and negotiating offers:</strong> The more you can get in writing before setting foot in a dealership, the better deal you'll get!</li>
+                            <li><strong>Dealers may contact you</strong> after you check what you should be paying for your desired vehicle in Step 1c. <strong>Or it might be you making the first contact:</strong> You can find the Internet Sales Manager and/or Sales Reps on dealership websites. Either way...</li>
                         </ol>
+                    </div>
+                    <div class="image-column">
+                        <div class="image-container">
+                            <img src="image_553443.jpg" alt="Shop Around & Get Best OTD Price" class="content-image-small">
+                        </div>
                     </div>
                 </div>
             </li>
 
             <li>
                 <span class="section-header">Use email to shop around smartly</span>
-                <ol type="a">
-                    <li>Email several dealers to request initial offers for the following separate pieces of your car-buying transaction, using our negotiation tools <a href="https://www.consumerreports.org/askcr/" target="_blank">AI assistant</a>:
-                        <ol type="i">
-                            <li><strong>Out-the-door (OTD) price:</strong> one all-inclusive figure that covers all taxes and fees, with no hidden costs or add-ons later. Do not include your trade-in (see next step)!</li>
-                            <li><strong>A separate, all-in trade-in offer:</strong> Keep the trade-in separate from the OTD price and ask for the exact check amount they would write you today with no last-minute changes. Make sure the offer is valid for at least seven days so you have time to compare.</li>
-                            <li><strong>Financing offer:</strong> a separate financing quote that details the interest rate (APR), loan term, and required down payment, tailored to your current credit score (<a href="https://www.experian.com/blogs/ask-experian/how-do-you-check-your-credit-score/?utm_source=chatgpt.com" target="_blank">how to look up</a> your score).</li>
-                        </ol>
-                    </li>
-                    <li><strong>Negotiate by email! Their initial offer is rarely their final one....</strong>
-                        <ol type="i">
-                            <li><strong>Negotiate each part of the deal separately!</strong> Dealers try to bundle together the car, financing, trade-in, and add-ons to keep you from negotiating effectively. See our (<a href="#">scripts</a>) or just write:
-                                <ol type="1">
-                                    <li>"We can talk about what you have to offer on financing after we finalize the price of the car." OR</li>
-                                    <li>"We can talk about my potential trade-in later, after we finalize the price of the car."</li>
+                <div class="content-body-flex">
+                    <div class="text-column">
+                        <ol type="a">
+                            <li>Email several dealers to request initial offers for the following separate pieces of your car-buying transaction, using our negotiation tools <a href="https://www.consumerreports.org/askcr/" target="_blank">AI assistant</a>:
+                                <ol type="i">
+                                    <li><strong>Out-the-door (OTD) price:</strong> one all-inclusive figure that covers all taxes and fees, with no hidden costs or add-ons later. Do not include your trade-in (see next step)!</li>
+                                    <li><strong>A separate, all-in trade-in offer:</strong> Keep the trade-in separate from the OTD price and ask for the exact check amount they would write you today with no last-minute changes. Make sure the offer is valid for at least seven days so you have time to compare.</li>
+                                    <li><strong>Financing offer:</strong> a separate financing quote that details the interest rate (APR), loan term, and required down payment, tailored to your current credit score (<a href="https://www.experian.com/blogs/ask-experian/how-do-you-check-your-credit-score/?utm_source=chatgpt.com" target="_blank">how to look up</a> your score).</li>
                                 </ol>
                             </li>
-                            <li><strong>Focus on prices and rates, not just monthly payments.</strong> Dealers profit at your expense when they sell you on the monthly payment instead of the overall price.
-                                <ol type="1">
-                                    <li>Try saying: "I'm not focused on the monthly payment-let's talk about the out-the-door price."</li>
-                                    <li>Then, you can further lower your monthly payment by negotiating a longer term: "I have a loan pre-approval for 72 months at []% APR. Can you beat/match that?"</li>
+                            <li><strong>Negotiate by email! Their initial offer is rarely their final one....</strong>
+                                <ol type="i">
+                                    <li><strong>Negotiate each part of the deal separately!</strong> Dealers try to bundle together the car, financing, trade-in, and add-ons to keep you from negotiating effectively. See our (<a href="#">scripts</a>) or just write:
+                                        <ol type="1">
+                                            <li>"We can talk about what you have to offer on financing after we finalize the price of the car." OR</li>
+                                            <li>"We can talk about my potential trade-in later, after we finalize the price of the car."</li>
+                                        </ol>
+                                    </li>
+                                    <li><strong>Focus on prices and rates, not just monthly payments.</strong> Dealers profit at your expense when they sell you on the monthly payment instead of the overall price.
+                                        <ol type="1">
+                                            <li><strong>Try saying: "I'm not focused on the monthly payment-let's talk about the out-the-door price."</strong></li>
+                                            <li>Then, you can further lower your monthly payment by negotiating a longer term: "I have a loan pre-approval for 72 months at []% APR. Can you beat/match that?"</li>
+                                        </ol>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li><strong>Decline unnecessary add-ons:</strong> Dealers add overpriced add-ons (e.g., extended warranties, service contracts, coating, GAP insurance, etc.). Just say no to anything you haven't researched and decided you need!</li>
+                            <li><strong>Trash junk fees.</strong> Many dealers add unnecessary fees-you should refuse to pay these. See our (<a href="#">Checklist</a>) for what's legit and what's not.</li>
+                            <li><strong>Leverage your outside offers.</strong> Be ready to walk away if the dealer doesn't meet or beat them. Try saying:
+                                <ol type="i">
+                                    <li><strong>"I have an out-the-door quote for $ from another dealer. Can you beat that?"</strong></li>
+                                    <li><strong>I have an offer for % for months with no fees and no money down. Can you beat that?"</strong></li>
                                 </ol>
                             </li>
                         </ol>
-                    </li>
-                    <li><strong>Decline unnecessary add-ons:<strong> Dealers add overpriced add-ons (e.g., extended warranties, service contracts, coating, GAP insurance, etc.). Just say no to anything you haven't researched and decided you need!</li>
-                    <li><strong>Trash junk fees.<strong> Many dealers add unnecessary fees-you should refuse to pay these. See our (<a href="#">Checklist</a>) for what's legit and what's not.</li>
-                    <li><strong>Leverage your outside offers.<strong> Be ready to walk away if the dealer doesn't meet or beat them. Try saying:
-                        <ol type="i">
-                            <li>"I have an out-the-door quote for $ from another dealer. Can you beat that?"</li>
-                            <li>I have an offer for % for months with no fees and no money down. Can you beat that?"</li>
-                        </ol>
-                    </li>
-                </ol>
+                    </div>
+                </div>
             </li>
 
             <li>
                 <span class="section-header">Go to the dealership to complete the transaction!</span>
-                <ol type="a">
-                    <li>If the dealer tries to change the deal, show them what you have in writing.</li>
-                    <li>Repeat Step 5, as needed.</li>
-                    <li>Sign on the dotted lines to close your good deal!</li>
-                    <li>Enjoy your new vehicle!</li>
-                </ol>
+                <div class="content-body-flex">
+                    <div class="text-column">
+                        <ol type="a">
+                            <li><strong>If the dealer tries to change the deal, show them what you have in writing.</strong></li>
+                            <li><strong>Repeat Step 5, as needed.</strong></li>
+                            <li><strong>Sign on the dotted lines to close your good deal!</strong></li>
+                            <li><strong>Enjoy your new vehicle!</strong></li>
+                        </ol>
+                    </div>
+                </div>
             </li>
 
             <li>
